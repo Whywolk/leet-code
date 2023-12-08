@@ -1,6 +1,6 @@
 import random
 import unittest
-from solution import Solution
+from solution import Solution, Solution2
 
 
 class SolutionTest(unittest.TestCase):
@@ -20,17 +20,38 @@ class SolutionTest(unittest.TestCase):
 
     def test_one_square_two_size(self):
         matrix = [['0', '0', '0', '0', '0'],
-                  ['0', '1', '1', '0', '0']
-                  ['0', '1', '1', '0', '0']
+                  ['0', '1', '1', '0', '0'],
+                  ['0', '1', '1', '0', '0'],
                   ['0', '0', '0', '0', '0']]
         self.assertEqual(2, self.solution.maximal_square(matrix))
 
+    def test_two_squares_two_size(self):
+        matrix = [['0', '0', '0', '0', '0'],
+                  ['0', '1', '1', '1', '0'],
+                  ['0', '1', '1', '1', '0'],
+                  ['0', '0', '0', '0', '0']]
+        self.assertEqual(2, self.solution.maximal_square(matrix))
+
+    def test_one_square_not_filled(self):
+        matrix = [['0', '0', '0', '0', '0'],
+                  ['0', '1', '1', '0', '0'],
+                  ['0', '1', '0', '0', '0'],
+                  ['0', '0', '0', '0', '0']]
+        self.assertEqual(1, self.solution.maximal_square(matrix))
+
     def test_one_square_three_size(self):
         matrix = [['0', '0', '0', '0', '0'],
-                  ['0', '1', '1', '1', '0']
-                  ['0', '1', '1', '1', '0']
+                  ['0', '1', '1', '1', '0'],
+                  ['0', '1', '1', '1', '0'],
                   ['0', '1', '1', '1', '0']]
         self.assertEqual(3, self.solution.maximal_square(matrix))
+
+    def test_filled_matrix_square_four_size(self):
+        matrix = [['1', '1', '1', '1'],
+                  ['1', '1', '1', '1'],
+                  ['1', '1', '1', '1'],
+                  ['1', '1', '1', '1']]
+        self.assertEqual(4, self.solution.maximal_square(matrix))
 
     def test_empty_matrix_then_throw_exception(self):
         matrix = []
@@ -55,8 +76,7 @@ class SolutionTest(unittest.TestCase):
                   ['a', '0', 0]]
         with self.assertRaises(Exception) as exc:
             res = self.solution.maximal_square(matrix)
-        self.assertEqual(str(exc.exception),'Invalid values, must be only "0" and "1"')
-
+        self.assertEqual(str(exc.exception),'Invalid values, matrix must contain only "0" and "1"')
 
 
 if __name__ == '__main__':
