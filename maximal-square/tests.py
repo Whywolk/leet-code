@@ -46,6 +46,12 @@ class SolutionTest(unittest.TestCase):
                   ['0', '1', '1', '1', '0']]
         self.assertEqual(3, self.solution.maximal_square(matrix))
 
+    def test_one_square_three_size_with_zero_at_center(self):
+        matrix = [['1', '1', '1'],
+                  ['1', '0', '1'],
+                  ['1', '1', '1']]
+        self.assertEqual(1, self.solution.maximal_square(matrix))
+
     def test_filled_matrix_square_four_size(self):
         matrix = [['1', '1', '1', '1'],
                   ['1', '1', '1', '1'],
@@ -65,15 +71,22 @@ class SolutionTest(unittest.TestCase):
             res = self.solution.maximal_square(matrix)
         self.assertEqual(str(exc.exception), 'Invalid matrix size')
 
-    def test_wrong_matrix_shapes_then_throw_exception(self):
+    def test_invalid_matrix_shapes_then_throw_exception(self):
         matrix = [['0' for j in range(random.randint(1, 6))] for i in range(6)]
         with self.assertRaises(Exception) as exc:
             res = self.solution.maximal_square(matrix)
         self.assertEqual(str(exc.exception), 'Invalid matrix shapes')
 
-    def test_wrong_values_then_throw_exception(self):
-        matrix = [['0', '1', 1],
-                  ['a', '0', 0]]
+    def test_invalid_values_literals_then_throw_exception(self):
+        matrix = [['b', 'd', 'r'],
+                  ['a', '0', 'a']]
+        with self.assertRaises(Exception) as exc:
+            res = self.solution.maximal_square(matrix)
+        self.assertEqual(str(exc.exception),'Invalid values, matrix must contain only "0" and "1"')
+
+    def test_invalid_int_values_then_throw_exception_(self):
+        matrix = [[0, 1, 1],
+                  [1, 0, 0]]
         with self.assertRaises(Exception) as exc:
             res = self.solution.maximal_square(matrix)
         self.assertEqual(str(exc.exception),'Invalid values, matrix must contain only "0" and "1"')

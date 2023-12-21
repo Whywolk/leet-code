@@ -10,7 +10,9 @@ class Solution:
         :return: size of the largest square
         '''
         self._validate(matrix)
+        return self._maximal_square(matrix)
 
+    def _maximal_square(self, matrix):
         m = len(matrix)
         n = len(matrix[0])
         max_square = 0
@@ -18,7 +20,7 @@ class Solution:
 
         for i in range(m):
             for j in range(n):
-                if i == 0 or j == 0:
+                if i == 0 or j == 0 or matrix[i][j] == '0':
                     tmp[i][j] = int(matrix[i][j])
                 else:
                     tmp[i][j] = min(tmp[i][j - 1],
@@ -55,9 +57,7 @@ class Solution:
 
 class Solution2(Solution):
 
-    def maximal_square(self, matrix: List[List[str]]) -> int:
-        super()._validate(matrix)
-
+    def _maximal_square(self, matrix):
         m = len(matrix)
         n = len(matrix[0])
         max_square = 0
@@ -65,9 +65,9 @@ class Solution2(Solution):
 
         for i in range(m):
             for j in range(n):
-                if i == 0:
+                if i == 0 or matrix[i][j] == '0':
                     tmp[0][j] = int(matrix[i][j])
-                elif j == 0:
+                elif j == 0 or matrix[i][j] == '0':
                     tmp[1][j] = int(matrix[i][j])
                 else:
                     tmp[1][j] = min(tmp[1][j - 1],
